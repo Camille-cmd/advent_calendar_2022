@@ -2,13 +2,14 @@
 
 # Day 5: Supply Stacks -> https://adventofcode.com/2022/day/5
 
+from collections import defaultdict
 import os
 import sys
 
 filepath = os.path.join(sys.path[0], "puzzle_input.txt")
 
 with open(filepath, 'r') as file:
-    puzzle_data = file.read().splitlines()
+    puzzle_data = file.readlines()
 
 # Separate instructions from stacks
 instructions = []
@@ -25,13 +26,11 @@ for line in puzzle_data:
         stacks_transposed.append(list(line[1:][::4]))
 
 # Create a stack dict
-stacks = {}
+stacks = defaultdict(list)
 for stack_line in stacks_transposed[::-1]:
     for index, crate in enumerate(stack_line):
         if crate == " ":
             continue
-        if index + 1 not in stacks:
-            stacks[index + 1] = []
         stacks[index + 1].append(crate)
 
 for instruction in instructions:
